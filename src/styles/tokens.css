@@ -1,0 +1,147 @@
+/**
+ * LumiGlow Enterprise Design System Tokens
+ * Strictly adheres to 8px/4px spatial grid, modular fluid typography,
+ * WCAG 2.1 AA contrast compliance, and safe-area environment insets.
+ */
+
+:root {
+  /* ─── Color Palette: Light Mode (Default) ─── */
+  --color-bg-primary: #FFF8F0;
+  --color-bg-secondary: #F2E8DC;
+  --color-bg-elevated: #FFFFFF;
+  --color-bg-subtle: #EFE4D6;
+  --color-bg-glass: rgba(255, 248, 240, 0.88);
+  --color-overlay: rgba(44, 31, 20, 0.65);
+
+  --color-accent: #B87333;           /* Copper/Warm Gold - WCAG AA compliant with light bg */
+  --color-accent-hover: #9E5B20;
+  --color-accent-subtle: rgba(184, 115, 51, 0.12);
+  --color-accent-light: #E8C4A0;
+  --color-accent-dark: #8A4F1D;
+
+  --color-sage: #4E7C59;             /* Nature green - High contrast */
+  --color-sage-bg: #EAF2EB;
+  --color-rose: #C25B6C;
+  --color-rose-bg: #FDF0F2;
+
+  --color-text-primary: #21140B;     /* Contrast ratio > 12:1 against light bg */
+  --color-text-secondary: #5C4537;   /* Contrast ratio > 5.5:1 (passes WCAG AA) */
+  --color-text-tertiary: #7D6556;    /* Contrast ratio > 4.5:1 for small text */
+  --color-text-inverse: #FFFFFF;
+  --color-text-accent: #9E5B20;
+
+  --color-border: rgba(184, 115, 51, 0.22);
+  --color-border-subtle: rgba(92, 69, 55, 0.12);
+  --color-border-focus: #B87333;
+
+  --color-success: #2E7D32;
+  --color-warning: #B26A00;
+  --color-error: #D32F2F;
+  --color-info: #0288D1;
+
+  /* ─── Shadows ─── */
+  --shadow-xs: 0 1px 2px rgba(44, 31, 20, 0.05);
+  --shadow-sm: 0 2px 8px rgba(44, 31, 20, 0.08);
+  --shadow-md: 0 8px 24px rgba(44, 31, 20, 0.12);
+  --shadow-lg: 0 16px 40px rgba(44, 31, 20, 0.16);
+  --shadow-glow: 0 0 32px rgba(184, 115, 51, 0.25);
+
+  /* ─── Typography Scales (Modular clamp for fluid responsiveness) ─── */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.8125rem);  /* 12px -> 13px */
+  --font-size-sm: clamp(0.875rem, 0.825rem + 0.25vw, 0.9375rem); /* 14px -> 15px */
+  --font-size-base: clamp(0.9375rem, 0.8875rem + 0.25vw, 1.0625rem); /* 15px -> 17px */
+  --font-size-lg: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);  /* 18px -> 20px */
+  --font-size-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);     /* 20px -> 24px */
+  --font-size-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 2rem);      /* 24px -> 32px */
+  --font-size-3xl: clamp(1.875rem, 1.6rem + 1.25vw, 2.75rem);  /* 30px -> 44px */
+  --font-size-4xl: clamp(2.25rem, 1.85rem + 2vw, 3.75rem);     /* 36px -> 60px */
+
+  --line-height-tight: 1.15;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  /* ─── Spacing Scale (8px / 4px strict spatial system) ─── */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* ─── Radii ─── */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-pill: 9999px;
+
+  /* ─── Transitions & Micro-interactions ─── */
+  --ease-spring: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+
+  /* ─── Viewport Safe-Areas (Mobile Notches & Dynamic Island) ─── */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  /* ─── Container Max Widths ─── */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;   /* Standard Laptop */
+  --container-2xl: 1440px;  /* Desktop Monitor */
+  --container-4k: 1536px;   /* 4K / Ultra-wide Workstation Limit */
+
+  /* ─── Minimum Touch Target (Apple HIG & WCAG 2.5.8) ─── */
+  --min-touch-target: 44px;
+}
+
+/* ─── Dark Mode Color Overrides ─── */
+[data-theme="dark"] {
+  --color-bg-primary: #120D0A;
+  --color-bg-secondary: #1D1511;
+  --color-bg-elevated: #241A15;
+  --color-bg-subtle: #2C211B;
+  --color-bg-glass: rgba(18, 13, 10, 0.88);
+  --color-overlay: rgba(0, 0, 0, 0.8);
+
+  --color-accent: #D4A373;
+  --color-accent-hover: #E8C4A0;
+  --color-accent-subtle: rgba(212, 163, 115, 0.18);
+  --color-accent-light: #F3DEC9;
+  --color-accent-dark: #B87333;
+
+  --color-sage: #7DB58A;
+  --color-sage-bg: #1B2B1F;
+  --color-rose: #E08293;
+  --color-rose-bg: #2E191D;
+
+  --color-text-primary: #F7EFE8;     /* Contrast ratio > 14:1 */
+  --color-text-secondary: #D4C1B4;   /* Contrast ratio > 7:1 */
+  --color-text-tertiary: #A69285;    /* Contrast ratio > 4.5:1 */
+  --color-text-inverse: #120D0A;
+  --color-text-accent: #E8C4A0;
+
+  --color-border: rgba(212, 163, 115, 0.28);
+  --color-border-subtle: rgba(212, 163, 115, 0.12);
+  --color-border-focus: #D4A373;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.65);
+  --shadow-glow: 0 0 32px rgba(212, 163, 115, 0.2);
+}
