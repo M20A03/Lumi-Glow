@@ -1,5 +1,4 @@
-import { useMemo, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useMemo, useState } from 'react';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import './Phase2.css';
@@ -13,68 +12,35 @@ const categories = [
 ];
 
 export default function Products() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  // Sync state from URL Query Parameters
-  const activeCategory = searchParams.get('category') || 'all';
-  const query = searchParams.get('q') || '';
-  const sortBy = searchParams.get('sort') || 'featured';
-
-  const updateParam = useCallback((key, value) => {
-    const newParams = new URLSearchParams(searchParams);
-    if (!value || value === 'all' || (key === 'sort' && value === 'featured')) {
-      newParams.delete(key);
-    } else {
-      newParams.set(key, value);
-    }
-    setSearchParams(newParams, { replace: true });
-  }, [searchParams, setSearchParams]);
-
-  const handleCategoryChange = useCallback((catKey) => {
-    updateParam('category', catKey);
-  }, [updateParam]);
-
-  const handleSearchChange = useCallback((val) => {
-    updateParam('q', val);
-  }, [updateParam]);
-
-  const handleSortChange = useCallback((val) => {
-    updateParam('sort', val);
-  }, [updateParam]);
-
-  const resetAllFilters = useCallback(() => {
-    const newParams = new URLSearchParams();
-    if (searchParams.get('quickView')) {
-      newParams.set('quickView', searchParams.get('quickView'));
-    }
-    setSearchParams(newParams, { replace: true });
-  }, [searchParams, setSearchParams]);
+  const [activeCategory, setActive] = useState('all');
+  const [query, setQuery] = useState('');
+  const [sortBy, setSortBy] = useState('featured');
 
   const suggestionChips = useMemo(() => {
     const chips = [];
 
     if (activeCategory === 'all' && !query.trim()) {
-      chips.push({ label: 'Show high-rated picks', action: () => handleSortChange('rating') });
-      chips.push({ label: 'Only bundles', action: () => handleCategoryChange('bundle') });
-      chips.push({ label: 'Best value first', action: () => handleSortChange('price-low') });
+      chips.push({ label: 'Show high-rated picks', action: () => setSortBy('rating') });
+      chips.push({ label: 'Only bundles', action: () => setActive('bundle') });
+      chips.push({ label: 'Best value first', action: () => setSortBy('price-low') });
       return chips;
     }
 
     if (activeCategory !== 'all') {
-      chips.push({ label: 'Clear category', action: () => handleCategoryChange('all') });
+      chips.push({ label: 'Clear category', action: () => setActive('all') });
     }
 
     if (query.trim()) {
-      chips.push({ label: `Search "${query.trim()}" by rating`, action: () => handleSortChange('rating') });
-      chips.push({ label: 'Reset search', action: () => handleSearchChange('') });
+      chips.push({ label: `Search "${query.trim()}" by rating`, action: () => setSortBy('rating') });
+      chips.push({ label: 'Reset search', action: () => setQuery('') });
     }
 
     if (sortBy !== 'featured') {
-      chips.push({ label: 'Back to featured', action: () => handleSortChange('featured') });
+      chips.push({ label: 'Back to featured', action: () => setSortBy('featured') });
     }
 
     return chips.slice(0, 4);
-  }, [activeCategory, query, sortBy, handleCategoryChange, handleSearchChange, handleSortChange]);
+  }, [activeCategory, query, sortBy]);
 
   const filtered = useMemo(() => {
     const byCategory = activeCategory === 'all'
@@ -104,29 +70,27 @@ export default function Products() {
       <section className="p2-products-hero">
         <div className="container p2-products-hero-inner">
           <div>
-            <p className="section-label">Enterprise Skincare Line</p>
-            <h1>Advanced Botanical Discovery</h1>
+            <p className="section-label">Phase 2 Experience</p>
+            <h1>Advanced Product Discovery</h1>
             <p>
-              Smart filters, stateful URL routing, verified botanical active concentrations, and instant personalized recommendations.
+              Smart filters, instant search, stronger visual hierarchy, and an AI concierge shortcut for faster buying decisions.
             </p>
             <div className="p2-products-hero-actions">
-              <button type="button" className="btn btn-primary" onClick={openConcierge}>
-                Ask AI Skincare Concierge
-              </button>
+              <button type="button" className="btn btn-primary" onClick={openConcierge}>Ask AI for Recommendations</button>
             </div>
           </div>
           <div className="p2-products-proof">
             <article>
               <strong>{products.length}</strong>
-              <span>Formulated formulas</span>
+              <span>Curated products</span>
             </article>
             <article>
-              <strong>4.9★</strong>
-              <span>Clinical satisfaction</span>
+              <strong>4.9</strong>
+              <span>Average rating</span>
             </article>
             <article>
-              <strong>100%</strong>
-              <span>Cruelty-Free & Vegan</span>
+              <strong>24/7</strong>
+              <span>Concierge support</span>
             </article>
           </div>
         </div>
@@ -134,44 +98,31 @@ export default function Products() {
 
       <section className="section-padding container p2-products-controls-wrap">
         <div className="p2-products-controls">
-          {/* Filter Chips */}
-          <div className="filter-chips p2-filter-chips" role="tablist" aria-label="Product categories">
+          <div className="filter-chips p2-filter-chips">
             {categories.map((category) => (
               <button
                 key={category.key}
-                role="tab"
-                aria-selected={activeCategory === category.key}
                 className={`chip${activeCategory === category.key ? ' active' : ''}`}
-                onClick={() => handleCategoryChange(category.key)}
+                onClick={() => setActive(category.key)}
               >
                 {category.label}
               </button>
             ))}
           </div>
 
-          {/* Search & Sort Controls */}
           <div className="p2-products-tools">
             <label className="p2-search-box" aria-label="Search products">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-                <circle cx="11" cy="11" r="7"/>
-                <path d="M21 21l-4.35-4.35"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
               <input
                 type="search"
-                placeholder="Search formulas or ingredients..."
+                placeholder="Search products..."
                 value={query}
-                onChange={(event) => handleSearchChange(event.target.value)}
-                aria-label="Filter formulas by name or ingredient"
+                onChange={(event) => setQuery(event.target.value)}
               />
             </label>
 
-            <select
-              className="sort-select"
-              value={sortBy}
-              onChange={(event) => handleSortChange(event.target.value)}
-              aria-label="Sort products"
-            >
-              <option value="featured">Featured Collection</option>
+            <select className="sort-select" value={sortBy} onChange={(event) => setSortBy(event.target.value)}>
+              <option value="featured">Featured</option>
               <option value="price-low">Price: Low to High</option>
               <option value="price-high">Price: High to Low</option>
               <option value="rating">Highest Rated</option>
@@ -180,20 +131,16 @@ export default function Products() {
           </div>
         </div>
 
-        {/* Results Metadata */}
         <div className="p2-products-meta-row">
-          <span>{filtered.length} formula{filtered.length !== 1 ? 's' : ''} found</span>
-          {(activeCategory !== 'all' || query || sortBy !== 'featured') && (
-            <button type="button" className="p2-inline-link" onClick={resetAllFilters}>
-              Reset All Filters
-            </button>
-          )}
+          <span>{filtered.length} product{filtered.length !== 1 ? 's' : ''} found</span>
+          <button type="button" className="p2-inline-link" onClick={() => { setQuery(''); setSortBy('featured'); setActive('all'); }}>
+            Reset Filters
+          </button>
         </div>
 
-        {/* AI Suggestion Chips */}
         {suggestionChips.length > 0 && (
           <div className="p2-ai-suggestions" aria-label="Smart suggestions">
-            <span>Suggestions:</span>
+            <span>AI suggestions:</span>
             {suggestionChips.map((chip) => (
               <button key={chip.label} type="button" className="p2-suggestion-chip" onClick={chip.action}>
                 {chip.label}
@@ -202,20 +149,18 @@ export default function Products() {
           </div>
         )}
 
-        {/* Product Grid */}
-        <div className="products-full-grid p2-products-grid p2-stagger-grid grid-responsive-products">
+        <div className="products-full-grid p2-products-grid p2-stagger-grid">
           {filtered.map((product, index) => (
-            <ProductCard key={product.id} product={product} delay={Math.min(index * 0.04, 0.4)} />
+            <ProductCard key={product.id} product={product} delay={index * 0.05} />
           ))}
         </div>
 
-        {/* Empty State */}
         {filtered.length === 0 && (
           <div className="p2-empty-state">
-            <h3>No formulas match your filters</h3>
-            <p>Try searching for different botanical ingredients or clear active filters.</p>
-            <button type="button" className="btn btn-outline" onClick={resetAllFilters} style={{ marginTop: '1rem' }}>
-              Clear All Filters
+            <h3>No products match your filters</h3>
+            <p>Try a different keyword or switch category.</p>
+            <button type="button" className="btn btn-outline" onClick={() => { setQuery(''); setActive('all'); }}>
+              Clear Search
             </button>
           </div>
         )}

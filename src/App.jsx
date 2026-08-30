@@ -1,9 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { ThemeProvider } from './context/ThemeContext';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
-import ErrorBoundary from './components/ErrorBoundary';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
@@ -13,7 +11,6 @@ import CookieBanner from './components/CookieBanner';
 import BackToTop from './components/BackToTop';
 import ChatBot from './components/ChatBot';
 import GlobalFX from './components/GlobalFX';
-import ProductQuickViewModal from './components/ProductQuickViewModal';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
@@ -27,15 +24,12 @@ import Checkout from './pages/Checkout';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
 }
 
 function GlobalScrollObserver() {
   const { pathname } = useLocation();
-
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -50,9 +44,12 @@ function GlobalScrollObserver() {
 
     const shouldRevealImmediately = (el) => {
       const rect = el.getBoundingClientRect();
+      // If the element is already above (or within) the viewport on attach, reveal it now
+      // so restored scroll positions do not leave large blank hidden sections.
       return rect.top <= window.innerHeight * 0.92;
     };
 
+    // Delay slightly to allow React to mount the DOM nodes after route change
     const timeout = setTimeout(() => {
       document.querySelectorAll(revealSelector).forEach(el => {
         if (el.classList.contains('visible')) return;
@@ -64,12 +61,8 @@ function GlobalScrollObserver() {
       });
     }, 150);
 
-    return () => {
-      clearTimeout(timeout);
-      observer.disconnect();
-    };
+    return () => { clearTimeout(timeout); observer.disconnect(); };
   }, [pathname]);
-
   return null;
 }
 
@@ -79,11 +72,7 @@ function Layout({ children }) {
       <GlobalFX />
       <a className="skip-link" href="#main-content">Skip to main content</a>
       <Navbar />
-      <main id="main-content" className="site-content" tabIndex={-1}>
-        <ErrorBoundary>
-          {children}
-        </ErrorBoundary>
-      </main>
+      <main id="main-content" className="site-content">{children}</main>
       <Footer />
       <CartDrawer />
       <Toast />
@@ -91,38 +80,33 @@ function Layout({ children }) {
       <CookieBanner />
       <BackToTop />
       <ChatBot />
-      <ProductQuickViewModal />
     </>
   );
 }
 
 export default function App() {
   return (
-    <ErrorBoundary>
-      <ThemeProvider>
-        <CartProvider>
-          <WishlistProvider>
-            <BrowserRouter>
-              <ScrollToTop />
-              <GlobalScrollObserver />
-              <Layout>
-                <Routes>
-                  <Route path="/"               element={<Home />}          />
-                  <Route path="/products"       element={<Products />}      />
-                  <Route path="/products/:id"   element={<ProductDetail />} />
-                  <Route path="/wishlist"       element={<Wishlist />}      />
-                  <Route path="/about"          element={<About />}         />
-                  <Route path="/contact"        element={<Contact />}       />
-                  <Route path="/faq"            element={<FAQ />}           />
-                  <Route path="/track-order"    element={<TrackOrder />}    />
-                  <Route path="/sustainability" element={<Sustainability />} />
-                  <Route path="/checkout"       element={<Checkout />}      />
-                </Routes>
-              </Layout>
-            </BrowserRouter>
-          </WishlistProvider>
-        </CartProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
+    <BrowserRouter>
+      <CartProvider>
+        <WishlistProvider>
+          <ScrollToTop />
+          <GlobalScrollObserver />
+          <Layout>
+            <Routes>
+              <Route path="/"               element={<Home />}          />
+              <Route path="/products"       element={<Products />}      />
+              <Route path="/products/:id"   element={<ProductDetail />} />
+              <Route path="/wishlist"       element={<Wishlist />}      />
+              <Route path="/about"          element={<About />}         />
+              <Route path="/contact"        element={<Contact />}       />
+              <Route path="/faq"            element={<FAQ />}           />
+              <Route path="/track-order"    element={<TrackOrder />}    />
+              <Route path="/sustainability" element={<Sustainability />} />
+              <Route path="/checkout"       element={<Checkout />}      />
+            </Routes>
+          </Layout>
+        </WishlistProvider>
+      </CartProvider>
+    </BrowserRouter>
   );
 }

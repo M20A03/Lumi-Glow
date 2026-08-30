@@ -1,25 +1,24 @@
-@import './styles/tokens.css';
-
 /* ============================================================
-   LumiGlow — Global CSS Design System & Enterprise SRE Tokens
+   LumiGlow — Global CSS Design System
    ============================================================ */
 
+/* ─── CSS Custom Properties ─── */
 :root {
-  --primary:       var(--color-bg-primary);
-  --secondary:     var(--color-bg-secondary);
-  --accent:        var(--color-accent);
-  --accent-light:  var(--color-accent-light);
-  --accent-dark:   var(--color-accent-dark);
-  --text-dark:     var(--color-text-primary);
-  --text-mid:      var(--color-text-secondary);
-  --text-light:    var(--color-text-tertiary);
-  --sage:          var(--color-sage);
-  --sage-light:    var(--color-sage-bg);
-  --white:         var(--color-bg-elevated);
-  --border:        var(--color-border);
-  --shadow-soft:   var(--shadow-sm);
-  --shadow-mid:    var(--shadow-md);
-  --shadow-lift:   var(--shadow-lg);
+  --primary:       #FFF8F0;
+  --secondary:     #F2E8DC;
+  --accent:        #C9956A;
+  --accent-light:  #E8C4A0;
+  --accent-dark:   #A07040;
+  --text-dark:     #2C1F14;
+  --text-mid:      #6B5040;
+  --text-light:    #9E8575;
+  --sage:          #8FAF8F;
+  --sage-light:    #C8DDCA;
+  --white:         #FFFFFF;
+  --border:        rgba(201, 149, 106, 0.25);
+  --shadow-soft:   0 4px 24px rgba(160, 112, 64, 0.10);
+  --shadow-mid:    0 8px 40px rgba(160, 112, 64, 0.18);
+  --shadow-lift:   0 20px 60px rgba(160, 112, 64, 0.22);
   --radius-sm:     8px;
   --radius-md:     16px;
   --radius-lg:     24px;
@@ -30,41 +29,15 @@
   --font-sans:     'Jost', 'Helvetica Neue', sans-serif;
 }
 
-/* ─── Reset & Base Accessibility ─── */
+/* ─── Reset ─── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
+  background-color: var(--primary);
+  color: var(--text-dark);
   line-height: 1.65;
   overflow-x: hidden;
-  padding-top: var(--safe-top);
-  padding-bottom: var(--safe-bottom);
-  padding-left: var(--safe-left);
-  padding-right: var(--safe-right);
-  transition: background-color var(--duration-normal) var(--ease-smooth), color var(--duration-normal) var(--ease-smooth);
-}
-
-/* Focus Ring Accessibility (WCAG 2.1 AA) */
-:focus-visible {
-  outline: 2px solid var(--color-border-focus, #B87333) !important;
-  outline-offset: 2px !important;
-}
-
-/* Mobile-First Form Reset: Permanently prevents iOS Safari from auto-zooming */
-@media (max-width: 768px) {
-  input, select, textarea {
-    font-size: 16px !important;
-  }
-}
-
-/* Touch Target Minimum (44x44px for Apple HIG & WCAG 2.5.8) */
-@media (pointer: coarse) {
-  .btn, .nav-action-btn, .mobile-toggle, .theme-toggle-btn, .chat-option-btn, .filter-chips .chip {
-    min-height: max(var(--min-touch-target, 44px), 44px);
-  }
 }
 
 .site-content {
@@ -281,50 +254,10 @@ h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
 h4 { font-size: 1.25rem; }
 p  { font-size: 0.97rem; color: var(--text-mid); }
 
-/* ─── Utilities & Container Strategy ─── */
-.container {
-  width: 100%;
-  max-width: var(--container-xl, 1280px);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: clamp(1rem, 3vw, 2rem);
-  padding-right: clamp(1rem, 3vw, 2rem);
-}
-
-@media (min-width: 1536px) {
-  .container {
-    max-width: var(--container-4k, 1536px);
-  }
-}
-
+/* ─── Utilities ─── */
+.container { max-width: 1240px; margin: 0 auto; padding: 0 1.5rem; }
 .text-center { text-align: center; }
-.section-padding { padding: clamp(3rem, 6vw, 6rem) 0; }
-.break-words { word-break: break-word; overflow-wrap: break-word; }
-
-/* Responsive Grid Scalers */
-.grid-responsive-products {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: clamp(1rem, 2.5vw, 2rem);
-}
-
-@media (min-width: 1024px) {
-  .grid-responsive-products {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 1440px) {
-  .grid-responsive-products {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (min-width: 1920px) {
-  .grid-responsive-products {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
+.section-padding { padding: 6rem 0; }
 
 /* ─── Buttons ─── */
 .btn {
