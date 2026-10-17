@@ -58,7 +58,16 @@ export default function ProductCard({ product, delay = 0 }) {
         {product.badge && (
           <span className={`product-label ${product.badgeType}`}>{product.badge}</span>
         )}
-        <img src={product.image} alt={product.name} loading="lazy" />
+        <img
+          src={product.image}
+          alt={product.name}
+          loading="lazy"
+          decoding="async"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300"><rect width="300" height="300" rx="16" fill="%23F5EBE0"/><circle cx="150" cy="140" r="50" fill="%23E0A899" fill-opacity="0.3"/><path d="M150 90C160 120 180 140 180 160C180 176.5 166.5 190 150 190C133.5 190 120 176.5 120 160C120 140 140 120 150 90Z" fill="%23CCD5AE"/><text x="150" y="235" fill="%238D7B68" font-size="12" font-family="serif" text-anchor="middle" font-weight="600">LumiGlow Botanical</text></svg>';
+          }}
+        />
         <button
           className={`product-wishlist ${isWishlisted ? 'wishlisted' : ''}`}
           onClick={(e) => { e.stopPropagation(); toggleWishlist(product.id); }}

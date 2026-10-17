@@ -4,14 +4,14 @@
 
 /* ─── CSS Custom Properties ─── */
 :root {
-  --primary:       #FFF8F0;
-  --secondary:     #F2E8DC;
-  --accent:        #C9956A;
-  --accent-light:  #E8C4A0;
-  --accent-dark:   #A07040;
-  --text-dark:     #2C1F14;
-  --text-mid:      #6B5040;
-  --text-light:    #9E8575;
+  --primary:       #F5EBE0;
+  --secondary:     #EBD9CA;
+  --accent:        #E0A899;
+  --accent-light:  #F2C9BE;
+  --accent-dark:   #C98878;
+  --text-dark:     #262626;
+  --text-mid:      #525252;
+  --text-light:    #737373;
   --sage:          #8FAF8F;
   --sage-light:    #C8DDCA;
   --white:         #FFFFFF;
@@ -1272,5 +1272,35 @@ p  { font-size: 0.97rem; color: var(--text-mid); }
   .reveal-scale {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* ─── 2026 Spatial Web: VisionOS Glass, Holographic Sheen & Mobile Pixels ─── */
+.product-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 80%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  mix-blend-mode: overlay;
+  z-index: 10;
+}
+.product-card:hover::after {
+  opacity: 1;
+}
+
+/* Exact Mobile Screen Breakpoints (360px - 430px) */
+@media (max-width: 430px) {
+  .products-grid, .products-full-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .cart-drawer-footer, .checkout-sticky-bar {
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
   }
 }
