@@ -24,7 +24,15 @@ export function CartProvider({ children }) {
     showToast(`✓ ${item.name} added to cart!`);
   };
 
-  const removeFromCart = (id) => setCart(prev => prev.filter(i => i.id !== id));
+  const removeFromCart = (id) => {
+    setCart((prev) => {
+      const item = prev.find((i) => i.id === id);
+      if (item) {
+        showToast(`✕ ${item.name} removed from cart`);
+      }
+      return prev.filter((i) => i.id !== id);
+    });
+  };
 
   const changeQty = (id, delta) => {
     setCart(prev => prev.map(i => i.id === id
