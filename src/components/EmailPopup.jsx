@@ -84,9 +84,9 @@ export default function EmailPopup() {
         <button className="popup-close" onClick={continueAsGuest} aria-label="Close popup">✕</button>
         <div className="popup-img">🌸</div>
         <div className="popup-content">
-          <div className="popup-offer">Lumi Glow</div>
-          <h3 id="email-popup-title">Continue With Email + Get 15% Off</h3>
-          <p id="email-popup-desc">Log in with your email to continue and receive weekly offers, early access drops, and code GLOW15.</p>
+          <div className="popup-offer">Exclusive Welcome Offer</div>
+          <h3 id="email-popup-title">Get 15% Off Your Order</h3>
+          <p id="email-popup-desc">Enter your email to unlock code <strong>GLOW15</strong>, or continue browsing as our guest.</p>
           <input
             type="text"
             className="popup-input"
@@ -105,10 +105,9 @@ export default function EmailPopup() {
           <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={continueWithEmail}>
             Continue With Email
           </button>
-          <button className="btn btn-outline" style={{ width: '100%', justifyContent: 'center', marginTop: '0.5rem' }} onClick={continueAsGuest}>
+          <button className="btn btn-outline" style={{ width: '100%', justifyContent: 'center', marginTop: '0.45rem' }} onClick={continueAsGuest}>
             Continue As Guest
           </button>
-          <button type="button" className="popup-no" onClick={continueAsGuest}>No thanks, continue without login</button>
         </div>
       </div>
     </div>

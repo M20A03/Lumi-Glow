@@ -1015,12 +1015,123 @@ p  { font-size: 0.97rem; color: var(--text-mid); }
   .footer-top { grid-template-columns: 1fr; }
   .newsletter-form { flex-direction: column; border-radius: var(--radius-md); }
   .bundle-promo { grid-template-columns: 1fr; }
-  .email-popup { grid-template-columns: 1fr; max-width: calc(100vw - 2rem); max-height: 85vh; overflow-y: auto; }
+
+  /* ─── Header Mobile Optimization (Prevents Search Icon & Logo Collision) ─── */
+  .nav-inner {
+    padding: 0.65rem 0.85rem;
+    gap: 0.4rem;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .logo img {
+    height: 28px;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-size: 1.25rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .nav-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  .nav-icon-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .nav-icon-btn svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .hamburger {
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ─── Mobile Email Popup (Fully Visible, No Cut-Off Guest Button) ─── */
+  .email-popup-overlay {
+    padding: 0.75rem;
+    align-items: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .email-popup {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    width: min(390px, 100%);
+    max-height: calc(100dvh - 1.5rem);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-md);
+    margin: auto;
+    box-shadow: 0 16px 48px rgba(44,31,20,0.3);
+  }
+
   .popup-img { display: none; }
-  .popup-content { padding: 1.5rem 1.25rem; }
-  .popup-offer { font-size: 2rem; }
-  .popup-content h3 { font-size: 1.05rem; }
-  .popup-close { width: 36px; height: 36px; top: 0.75rem; right: 0.75rem; }
+  .popup-content { padding: 1.25rem 1.1rem 1.25rem; }
+  .popup-offer {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin-bottom: 0.2rem;
+    font-family: var(--font-sans);
+    font-weight: 700;
+  }
+  .popup-content h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.35rem;
+    line-height: 1.25;
+  }
+  .popup-content > p {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin-bottom: 0.85rem;
+  }
+  .popup-input {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.85rem;
+    margin-bottom: 0.55rem;
+  }
+  .popup-content .btn {
+    padding: 0.7rem 1rem !important;
+    font-size: 0.88rem !important;
+    min-height: 42px;
+  }
+  .popup-close {
+    width: 32px;
+    height: 32px;
+    top: 0.65rem;
+    right: 0.65rem;
+    font-size: 0.85rem;
+  }
 
   .announcement-bar {
     grid-template-columns: 1fr;
@@ -1030,6 +1141,41 @@ p  { font-size: 0.97rem; color: var(--text-mid); }
 
   .announcement-toggle {
     display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .nav-inner {
+    padding: 0.5rem 0.5rem;
+    gap: 0.2rem;
+  }
+
+  .logo img {
+    height: 24px;
+  }
+
+  .logo-text {
+    font-size: 1.05rem;
+  }
+
+  .nav-actions {
+    gap: 0.15rem;
+  }
+
+  .nav-icon-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-icon-btn svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .hamburger {
+    width: 32px;
+    height: 32px;
+    padding: 5px;
   }
 }
 
