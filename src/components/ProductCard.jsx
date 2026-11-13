@@ -24,6 +24,11 @@ export default function ProductCard({ product, delay = 0 }) {
 
   const isWishlisted = wishlist.includes(product.id);
 
+  const formatPrice = (val) => {
+    if (val == null) return '';
+    return Number.isInteger(val) ? val.toLocaleString('en-IN') : Number(val).toFixed(2);
+  };
+
   const stars = '★'.repeat(Math.floor(product.rating)) + (product.rating % 1 ? '☆' : '');
 
   return (
@@ -92,10 +97,10 @@ export default function ProductCard({ product, delay = 0 }) {
           <span>({product.reviews.toLocaleString()} reviews)</span>
         </div>
         <div className="product-price">
-          <span className="price-current">₹{product.price.toFixed(2)}</span>
+          <span className="price-current">₹{formatPrice(product.price)}</span>
           {product.originalPrice && (
             <>
-              <span className="price-original">₹{product.originalPrice.toFixed(2)}</span>
+              <span className="price-original">₹{formatPrice(product.originalPrice)}</span>
               <span className="price-badge">SAVE {Math.round((1 - product.price/product.originalPrice)*100)}%</span>
             </>
           )}
