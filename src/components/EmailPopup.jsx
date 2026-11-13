@@ -43,7 +43,7 @@ export default function EmailPopup() {
       if (event.key === 'Escape') {
         event.preventDefault();
         setShow(false);
-        showToast('You are continuing as guest. You can unlock GLOW15 anytime from this popup.');
+        showToast('Continuing as guest. Use code GLOW15 anytime!');
         return;
       }
 
@@ -75,7 +75,7 @@ export default function EmailPopup() {
 
   const continueAsGuest = () => {
     setShow(false);
-    showToast('You are continuing as guest. You can unlock GLOW15 anytime from this popup.');
+    showToast('Continuing as guest. Use code GLOW15 anytime!');
   };
 
   return (
