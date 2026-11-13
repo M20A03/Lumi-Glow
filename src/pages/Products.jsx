@@ -171,7 +171,7 @@ export default function Products() {
             <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700, color: 'var(--sage, #4ade80)', display: 'block', marginBottom: '6px' }}>
               Filter by Skin Type & Need
             </span>
-            <div className="filter-chips p2-filter-chips" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <div className="filter-chips p2-filter-chips">
               {skinTypes.map((st) => (
                 <button
                   key={st.key}

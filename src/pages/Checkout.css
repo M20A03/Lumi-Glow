@@ -314,3 +314,22 @@
     position: static;
   }
 }
+
+@media (max-width: 600px) {
+  .checkout-page {
+    padding: 30px 12px 60px;
+  }
+  .checkout-left {
+    padding: 20px 16px;
+  }
+  .payment-gateways {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .payment-tab {
+    padding: 12px;
+  }
+  .checkout-header h1 {
+    font-size: 1.5rem;
+  }
+}

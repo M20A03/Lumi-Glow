@@ -38,15 +38,13 @@ function GlobalScrollObserver() {
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+    }, { threshold: 0.05, rootMargin: '120px 0px 60px 0px' });
 
     const revealSelector = '.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-glow';
 
     const shouldRevealImmediately = (el) => {
       const rect = el.getBoundingClientRect();
-      // If the element is already above (or within) the viewport on attach, reveal it now
-      // so restored scroll positions do not leave large blank hidden sections.
-      return rect.top <= window.innerHeight * 0.92;
+      return rect.top <= window.innerHeight * 1.15;
     };
 
     // Delay slightly to allow React to mount the DOM nodes after route change
@@ -59,7 +57,7 @@ function GlobalScrollObserver() {
         }
         observer.observe(el);
       });
-    }, 150);
+    }, 40);
 
     return () => { clearTimeout(timeout); observer.disconnect(); };
   }, [pathname]);

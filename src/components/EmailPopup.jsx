@@ -15,9 +15,12 @@ export default function EmailPopup() {
   useEffect(() => {
     if (!sessionStorage.getItem('lumiglow-popup-shown') && !localStorage.getItem('lumiglow-member-email')) {
       const t = setTimeout(() => {
-        setShow(true);
-        sessionStorage.setItem('lumiglow-popup-shown', '1');
-      }, 3500);
+        // Only trigger if user hasn't already dismissed it
+        if (!sessionStorage.getItem('lumiglow-popup-shown')) {
+          setShow(true);
+          sessionStorage.setItem('lumiglow-popup-shown', '1');
+        }
+      }, 7500);
       return () => clearTimeout(t);
     }
   }, []);
